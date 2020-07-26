@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Le Pierre",
+    "description": "The greatest french restaurant in the area",
+    "website": "http://lepierre.com",
+    "email": "lepierre@gmail.com",
+    "phone": "11 5555 5555",
+    "address": "Rua dos Pinheiros, 202, São Paulo, SP",
+    "cuisine": "French"
+  },
+  {
+    "name": "Dino's Pizza",
+    "description": "The greatest pizza in the area",
+    "website": "http://dinopizza.com",
+    "email": "dinopizza@gmail.com",
+    "phone": "11 5555 5555",
+    "address": "Avenida Moema, 210, São Paulo, SP",
+    "cuisine": "Italian"
+  },
+  {
+    "name": "Kiichi",
+    "description": "The greatest japan restaurant in the area",
+    "website": "http://kiichi.com",
+    "email": "kiichi@gmail.com",
+    "phone": "11 5555 5555",
+    "address": "Rua Luis Góes, 820, São Paulo, SP",
+    "cuisine": "Japanese"
+  }
+]
+
