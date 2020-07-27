@@ -2,6 +2,9 @@
 const path = require("path")
 const express = require("express")
 
+// Models
+const Restaurant = require(path.join(__dirname, "..", "models", "Restaurant"))
+
 // Controller Functions
 const {
   getRestaurants,
@@ -11,10 +14,13 @@ const {
   deleteRestaurant,
 } = require(path.join(__dirname, "..", "controllers", "restaurants"))
 
+// Middlewares
+const advancedSearch = require(path.join(__dirname, "..", "middleware", "advanced-search"))
+
 const router = express.Router()
 
 router.route("/")
-  .get(getRestaurants)
+  .get(advancedSearch(Restaurant), getRestaurants)
   .post(createRestaurant)
 
 router.route("/:id")

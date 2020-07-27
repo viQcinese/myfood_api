@@ -10,12 +10,7 @@ const CustomError = require(path.join(__dirname, "..", "utils", "CustomError"))
 // @access      Public
 exports.getRestaurants = asyncHandler(async (req, res, next) => {
 
-    const restaurants = await Restaurant.find()
-
-    res .status(200).json({
-      success: true, 
-      count: restaurants.length, 
-      data: restaurants})
+    res.status(200).json(res.advancedResults)
 
 })
 
