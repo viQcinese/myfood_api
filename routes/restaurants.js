@@ -18,6 +18,7 @@ const {
 // Middlewares
 const advancedSearch = require(path.join(__dirname, "..", "middleware", "advanced-search"))
 
+// Routes
 const router = express.Router()
 
 router.route("/:zipcode/:distance")

@@ -16,15 +16,15 @@ const userSchema = new mongoose.Schema({
 
   role: {
     type: String,
-    enum: ["client", "owner"],
-    default: "client"
+    enum: ["user", "owner"],
+    default: "user"
   },
 
   password: {
     type: String,
     required: [true, "You must enter a password"],
     minlength: 6,
-    select: false
+    select: true,
   },
 
   createdAt: {
@@ -33,3 +33,4 @@ const userSchema = new mongoose.Schema({
   }
 
 })
+

@@ -1,5 +1,4 @@
 // Requisitions
-const express = require("express")
 const path = require("path")
 const geocoder = require(path.join(__dirname, "..", "utils", "geocoder"))
 const Restaurant = require(path.join(__dirname, "..", "models", "Restaurant"))

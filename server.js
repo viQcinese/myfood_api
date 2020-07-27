@@ -15,6 +15,7 @@ database()
 
 // Load Routes
 const restaurants = require(path.join(__dirname, "routes", "restaurants"))
+const authorization = require(path.join(__dirname, "routes", "authorization"))
 
 // Initialize Express
 const app = express()
@@ -27,6 +28,7 @@ app.use(express.json())
 
 // Mount routers
 app.use("/api/v1/restaurants", restaurants)
+app.use("/api/v1/authorization", authorization)
 
 // Load ErrorHandler
 const errorHandler = require(path.join(__dirname, "middleware", "error"))
