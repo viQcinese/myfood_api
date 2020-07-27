@@ -10,12 +10,14 @@ const restaurantSchema = new mongoose.Schema({
     maxlength: [50, "Name cannot be more than 50 chars"]
   },
 
-  slug: String,
+  slug: {
+    type: String,
+  },
 
   description: {
     type: String,
     required: [true, "You have to enter a name"],
-    unique: true,
+    unique: false,
     maxlength: [500, "Description cannot be more than 500 chars"]
   },
 
