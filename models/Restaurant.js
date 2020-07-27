@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const slugify = require("slugify")
 
 const restaurantSchema = new mongoose.Schema({
   
@@ -101,6 +102,10 @@ const restaurantSchema = new mongoose.Schema({
     ref: "User",
   }
 
+})
+
+restaurantSchema.pre('save', function() {
+  this.slug = slugify(this.name, { lower: true})
 })
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema)
