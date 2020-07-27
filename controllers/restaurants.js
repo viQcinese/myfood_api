@@ -1,6 +1,7 @@
 // Requisitions
 const express = require("express")
 const path = require("path")
+const geocoder = require(path.join(__dirname, "..", "utils", "geocoder"))
 const Restaurant = require(path.join(__dirname, "..", "models", "Restaurant"))
 const asyncHandler = require(path.join(__dirname, "..", "middleware", "async"))
 const CustomError = require(path.join(__dirname, "..", "utils", "CustomError"))
@@ -28,6 +29,31 @@ exports.getRestaurant = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true, 
     data: restaurant})
+
+})
+
+// @desc        Get restaurants in radius
+// @route       GET /api/v1/restaurants/:zipcode/:radius
+// @access      Public
+exports.getRestaurantsInRadius = asyncHandler(async (req, res, next) => {
+
+  const { zipcode, distance } = req.params
+
+  // Get the point from URL zipcode 
+  const geoLocation = await geocoder.geocode(zipcode)
+  const lat = geoLocation[0].latitude
+  const lon = geoLocation[0].longitude
+  const radius = distance / 6378
+
+  const restaurants = await Restaurant.find({
+    location: { $geoWithin: { $centerSphere: [[lon, lat], radius ]}}
+  })
+
+  res.status(200).json({
+    success: true,
+    count: restaurants.length,
+    data: restaurants
+  })
 
 })
 

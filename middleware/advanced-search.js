@@ -36,8 +36,6 @@ const advancedSearch = (model) => async (req, res, next) => {
 
   query = query.skip(startIndex).limit(limit)
 
-  console.log(query)
-
   // Execute Mongoose Query
   const results = await query
 

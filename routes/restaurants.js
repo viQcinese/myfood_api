@@ -9,6 +9,7 @@ const Restaurant = require(path.join(__dirname, "..", "models", "Restaurant"))
 const {
   getRestaurants,
   getRestaurant,
+  getRestaurantsInRadius,
   createRestaurant,
   updateRestaurant,
   deleteRestaurant,
@@ -19,14 +20,17 @@ const advancedSearch = require(path.join(__dirname, "..", "middleware", "advance
 
 const router = express.Router()
 
-router.route("/")
-  .get(advancedSearch(Restaurant), getRestaurants)
-  .post(createRestaurant)
+router.route("/:zipcode/:distance")
+  .get(getRestaurantsInRadius)
 
 router.route("/:id")
   .get(getRestaurant)
   .put(updateRestaurant)
   .delete(deleteRestaurant)
+
+router.route("/")
+  .get(advancedSearch(Restaurant), getRestaurants)
+  .post(createRestaurant)
 
 // Export Router
 module.exports = router

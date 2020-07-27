@@ -1,5 +1,7 @@
+const path = require("path")
 const mongoose = require("mongoose")
 const slugify = require("slugify")
+const geocoder = require(path.join(__dirname, "..", "utils", "geocoder"))
 
 const restaurantSchema = new mongoose.Schema({
   
@@ -104,8 +106,30 @@ const restaurantSchema = new mongoose.Schema({
 
 })
 
+// Slugfy Before Save
 restaurantSchema.pre('save', function() {
+
   this.slug = slugify(this.name, { lower: true})
+
+})
+
+// Geocode Before Save and remove Address Field
+restaurantSchema.pre('save', async function(){
+
+  const geoLocations = await geocoder.geocode(this.address)
+  const geoLocation = geoLocations[0]
+  this.location = {
+    type: "Point",
+    coordinates : [geoLocation.longitude, geoLocation.latitude],
+    formattedAddress: geoLocation.formattedAddress,
+    street: geoLocation.streetName,
+    city: geoLocation.city,
+    state: geoLocation.stateCode,
+    zipcode: geoLocation.zipcode,
+    country: geoLocation.countryCode
+  }
+  this.address = undefined;
+
 })
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema)
