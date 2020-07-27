@@ -8,7 +8,14 @@ const CustomError = require(path.join(__dirname, "..", "utils", "CustomError"))
 // @route       GET /api/v1/auth/register
 // @access      Public
 exports.register = asyncHandler(async (req, res, next) => {
-  res.send("hi")
+  
+  const user = await User.create(req.body)
+
+  res.status(201).json({
+    success: true,
+    data: user
+  })
+
 })
 
 // @desc        Login user

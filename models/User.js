@@ -1,5 +1,8 @@
+// Requisitions
 const mongoose = require("mongoose")
+const bcrypt = require("bcrypt")
 
+// Set User Schema
 const userSchema = new mongoose.Schema({
 
   name: {
@@ -24,7 +27,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "You must enter a password"],
     minlength: 6,
-    select: true,
+    select: false,
   },
 
   createdAt: {
@@ -34,3 +37,17 @@ const userSchema = new mongoose.Schema({
 
 })
 
+// Hash Password Middleware
+userSchema.pre('save', async function() {
+  console.log(this)
+  const salt = await bcrypt.genSalt(10)
+  const hashedPassword = await bcrypt.hash(this.password, salt)
+  this.password = hashedPassword
+  console.log(this)
+})
+
+// Set User Model
+const User = mongoose.model('User', userSchema)
+
+// Export User Model
+module.exports = User
