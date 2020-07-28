@@ -1,6 +1,7 @@
 // Requisitions
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
 
 // Set User Schema
 const userSchema = new mongoose.Schema({
@@ -37,7 +38,7 @@ const userSchema = new mongoose.Schema({
 
 })
 
-// Hash Password Middleware
+// Hash Password Middleware (bcrypt)
 userSchema.pre('save', async function() {
   console.log(this)
   const salt = await bcrypt.genSalt(10)
@@ -45,6 +46,18 @@ userSchema.pre('save', async function() {
   this.password = hashedPassword
   console.log(this)
 })
+
+// Check Input Password against Hashed Password (bcrypt)
+userSchema.methods.checkPassword = async function(inputPassword) {
+  return await bcrypt.compare(inputPassword, this.password)
+}
+
+// Get User JsonWebToken for Authentication (jwt)
+userSchema.methods.getJwt = function() {
+  return jwt.sign({id: this._id}, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRATION
+  })
+}
 
 // Set User Model
 const User = mongoose.model('User', userSchema)

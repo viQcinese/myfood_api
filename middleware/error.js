@@ -5,8 +5,6 @@ const CustomError = require(path.join(__dirname, "..", "utils", "CustomError"))
 // Error Handler
 const errorHandler = (err, req, res, next) => {
 
-  console.log(err)
-
   // Set error properties
   let error = { ...err }
   error.message = err.message
@@ -22,7 +20,7 @@ const errorHandler = (err, req, res, next) => {
   }
 
   // Send Error Response
-  res.status(error.statusCode || 500 ).json({
+  return res.status(error.statusCode || 500 ).json({
     success: false,
     error: error.message
   })

@@ -11,10 +11,7 @@ exports.register = asyncHandler(async (req, res, next) => {
   
   const user = await User.create(req.body)
 
-  res.status(201).json({
-    success: true,
-    data: user
-  })
+  sendTokenResponse(user, 201, res)
 
 })
 
@@ -23,5 +20,57 @@ exports.register = asyncHandler(async (req, res, next) => {
 // @access      Public
 exports.login = asyncHandler(async (req, res, next) => {
 
+  const { password, email } = req.body
+
+  if(!password || !email) {
+    return next(new CustomError('You have to enter an email and a password', 400))
+  }
+
+  const user = await User.findOne({ email }).select('+password')
+
+  if(!user) {
+    return next(new CustomError('Incorrect email or password', 401))
+  }
+
+  const isMatch = await user.checkPassword(password)
+  
+  if(!isMatch) {
+    return next(new CustomError('Incorrect email or password', 401))
+  }
+
+  sendTokenResponse(user, 200, res)
+
 })
+
+// @desc        Get Current User
+// @route       GET /api/v1/auth/getme
+// @access      Private
+exports.getCurrentUser = asyncHandler(async (req, res, next) => {
+  
+  
+
+})
+
+// Send Token Response and set Token Cookie
+const sendTokenResponse = (user, status, res) => {
+
+  const token = user.getJwt()
+
+  const cookieOptions = {
+    expires: new Date(Date.now + process.env.JWT_COOKIE_EXPIRATION * 1000 * 60 * 60 * 24),
+    httpOnly: true,
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    cookieOptions.secure = true
+  }
+
+  res.status(status)
+    .cookie('token', token, cookieOptions)
+    .json({
+      success: true,
+      token: token
+    })
+
+}
 
