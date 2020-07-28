@@ -3,6 +3,8 @@ const express = require("express");
 const dotenv = require("dotenv");
 const path = require("path")
 const colors = require("colors");
+const cookieParser = require("cookie-parser")
+const checkUser = require(path.join(__dirname, "middleware", "check-user"));
 
 // Initialize Enviromental Variables
 dotenv.config({ path: path.join(__dirname, "config", "config.env")})
@@ -15,10 +17,16 @@ database()
 
 // Load Routes
 const restaurants = require(path.join(__dirname, "routes", "restaurants"))
-const authorization = require(path.join(__dirname, "routes", "authorization"))
+const authentication = require(path.join(__dirname, "routes", "authentication"))
 
 // Initialize Express
 const app = express()
+
+// Set Cookie Parser
+app.use(cookieParser())
+
+// Set Check User Middleware
+app.use(checkUser)
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, "public")))
@@ -28,13 +36,19 @@ app.use(express.json())
 
 // Mount routers
 app.use("/api/v1/restaurants", restaurants)
-app.use("/api/v1/authorization", authorization)
+app.use("/api/v1/auth", authentication)
 
 // Load ErrorHandler
 const errorHandler = require(path.join(__dirname, "middleware", "error"))
 
 // Set ErrorHandler
 app.use(errorHandler)
+
+// Handle Unhandled Rejections
+process.on('unhandledRejection', (err) => {
+  console.log(`${err.name}:`.red)
+  console.log(`${err.message}`)
+})
 
 // Run server
 const PORT = process.env.PORT || 5000

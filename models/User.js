@@ -40,11 +40,9 @@ const userSchema = new mongoose.Schema({
 
 // Hash Password Middleware (bcrypt)
 userSchema.pre('save', async function() {
-  console.log(this)
   const salt = await bcrypt.genSalt(10)
   const hashedPassword = await bcrypt.hash(this.password, salt)
   this.password = hashedPassword
-  console.log(this)
 })
 
 // Check Input Password against Hashed Password (bcrypt)

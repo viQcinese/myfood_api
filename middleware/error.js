@@ -9,6 +9,9 @@ const errorHandler = (err, req, res, next) => {
   let error = { ...err }
   error.message = err.message
 
+  // Console Log Error for Developer
+  console.log(err.message.red)
+
   // Cast Error: Resource not Found
   if (err.name === "CastError") {
     error = new CustomError(`No resource found with the ID ${err.value}`, 400)

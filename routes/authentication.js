@@ -5,11 +5,15 @@ const express = require("express")
 // Controller Functions
 const {
   register,
-  login
-} = require(path.join(__dirname, "..", "controllers", "authorization"))
+  login,
+  getCurrentUser
+} = require(path.join(__dirname, "..", "controllers", "authentication"))
 
 // Routes
 const router = express.Router()
+
+router.route('/getme')
+  .get(getCurrentUser)
 
 router.route('/register')
   .post(register)
