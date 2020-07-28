@@ -15,7 +15,13 @@ const {
   deleteRestaurant,
 } = require(path.join(__dirname, "..", "controllers", "restaurants"))
 
-// Middlewares
+// Auth Middleware
+const {
+  authenticate,
+  authorize
+} = require(path.join(__dirname, "..", "middleware", "auth"))
+
+// Advanced Search Middleware
 const advancedSearch = require(path.join(__dirname, "..", "middleware", "advanced-search"))
 
 // Routes
@@ -26,12 +32,12 @@ router.route("/:zipcode/:distance")
 
 router.route("/:id")
   .get(getRestaurant)
-  .put(updateRestaurant)
-  .delete(deleteRestaurant)
+  .put(authenticate, authorize("owner"), updateRestaurant)
+  .delete(authenticate, authorize("owner"), deleteRestaurant)
 
 router.route("/")
   .get(advancedSearch(Restaurant), getRestaurants)
-  .post(createRestaurant)
+  .post(authenticate, authorize("owner"), createRestaurant)
 
 // Export Router
 module.exports = router

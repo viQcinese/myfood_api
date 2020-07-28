@@ -9,11 +9,17 @@ const {
   getCurrentUser
 } = require(path.join(__dirname, "..", "controllers", "authentication"))
 
+// Auth Middleware
+const {
+  authenticate,
+  authorize
+} = require(path.join(__dirname, "..", "middleware", "auth"))
+
 // Routes
 const router = express.Router()
 
 router.route('/getme')
-  .get(getCurrentUser)
+  .get(authenticate, getCurrentUser)
 
 router.route('/register')
   .post(register)

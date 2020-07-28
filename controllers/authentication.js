@@ -46,8 +46,8 @@ exports.login = asyncHandler(async (req, res, next) => {
 // @route       GET /api/v1/auth/getme
 // @access      Private
 exports.getCurrentUser = asyncHandler(async (req, res, next) => {
-  
-  const user = await User.find(req.user)
+
+  const user = await User.findById(req.user._id)
 
   if (!user) {
     return next(new CustomError(`User not found`, 401))

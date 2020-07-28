@@ -4,7 +4,6 @@ const dotenv = require("dotenv");
 const path = require("path")
 const colors = require("colors");
 const cookieParser = require("cookie-parser")
-const checkUser = require(path.join(__dirname, "middleware", "check-user"));
 
 // Initialize Enviromental Variables
 dotenv.config({ path: path.join(__dirname, "config", "config.env")})
@@ -24,9 +23,6 @@ const app = express()
 
 // Set Cookie Parser
 app.use(cookieParser())
-
-// Set Check User Middleware
-app.use(checkUser)
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, "public")))
