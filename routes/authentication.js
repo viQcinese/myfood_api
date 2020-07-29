@@ -6,7 +6,12 @@ const express = require("express")
 const {
   register,
   login,
-  getCurrentUser
+  logout,
+  getCurrentUser,
+  updateDetails,
+  updatePassword,
+  forgotPassword,
+  resetPassword
 } = require(path.join(__dirname, "..", "controllers", "authentication"))
 
 // Auth Middleware
@@ -26,6 +31,21 @@ router.route('/register')
 
 router.route('/login')
   .post(login)
+
+router.route('/logout')
+  .get(authenticate, logout)
+
+router.route('/updatedetails')
+  .put(authenticate, updateDetails) 
+
+router.route('/updatepassword')
+  .post(authenticate, updatePassword) 
+
+router.route('/forgotpassword')
+  .post(forgotPassword) 
+
+router.route('/resetpassword/:resettoken')
+  .put(resetPassword)
 
 // Export Router
 module.exports = router
