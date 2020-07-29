@@ -4,7 +4,7 @@ const mongoose = require("mongoose")
 const slugify = require("slugify")
 const geocoder = require(path.join(__dirname, "..", "utils", "geocoder"))
 
-// Set Restaurant Schema
+// Restaurant Schema
 const restaurantSchema = new mongoose.Schema({
   
   name : {

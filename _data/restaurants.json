@@ -7,7 +7,8 @@
     "phone": "11 5555 5555",
     "address": "Rua dos Pinheiros, 202, São Paulo, SP",
     "cuisine": "French",
-    "user": "5f1f4620ba56bc57e8ba159a"
+    "user": "5f1f4620ba56bc57e8ba159a",
+    "_id": "5f2102cb83947f3c84477b87"
   },
   {
     "name": "Dino's Pizza",
@@ -17,7 +18,8 @@
     "phone": "11 5555 5555",
     "address": "Avenida Moema, 210, São Paulo, SP",
     "cuisine": "Italian",
-    "user": "5f1f4620ba56bc57e8ba159a"
+    "user": "5f1f4620ba56bc57e8ba159a",
+    "_id": "5f2102cb83947f3c84477b88"
   },
   {
     "name": "Kiichi",
@@ -27,7 +29,8 @@
     "phone": "11 5555 5555",
     "address": "Rua Luis Góes, 820, São Paulo, SP",
     "cuisine": "Japanese",
-    "user": "5f1f4620ba56bc57e8ba159a"
+    "user": "5f1f4620ba56bc57e8ba159a",
+    "_id": "5f2102cb83947f3c84477b89"
   }
 ]
 

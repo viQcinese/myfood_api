@@ -25,9 +25,16 @@ const {
 // Advanced Search Middleware
 const advancedSearch = require(path.join(__dirname, "..", "middleware", "advanced-search"))
 
-// Routes
+// Require Routes for other Documents
+const itemRouter = require(path.join(__dirname, "items"))
+
+// Initialize Router
 const router = express.Router()
 
+// Re-route into other document routers
+router.use('/:restaurant_id/items', itemRouter)
+
+// Restaurant Routes
 router.route("/:zipcode/:distance")
   .get(getRestaurantsInRadius)
 
