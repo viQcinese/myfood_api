@@ -1,4 +1,4 @@
-const advancedSearch = (model) => async (req, res, next) => {
+const advancedSearch = (model, populate) => async (req, res, next) => {
   
   let reqQuery = { ...req.query }
 
@@ -35,6 +35,11 @@ const advancedSearch = (model) => async (req, res, next) => {
   const total = await model.countDocuments()
 
   query = query.skip(startIndex).limit(limit)
+
+  // Populate Mongoose Query
+  if (populate) {
+    query = query.populate(populate)
+  }
 
   // Execute Mongoose Query
   const results = await query

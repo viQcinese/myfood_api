@@ -4,6 +4,7 @@ const express = require("express")
 
 // Models
 const Restaurant = require(path.join(__dirname, "..", "models", "Restaurant"))
+const User = require(path.join(__dirname, "..", "models", "User"))
 
 // Controller Functions
 const {
@@ -36,7 +37,7 @@ router.route("/:id")
   .delete(authenticate, authorize("owner"), deleteRestaurant)
 
 router.route("/")
-  .get(advancedSearch(Restaurant), getRestaurants)
+  .get(advancedSearch(Restaurant, "user"), getRestaurants)
   .post(authenticate, authorize("owner"), createRestaurant)
 
 // Export Router

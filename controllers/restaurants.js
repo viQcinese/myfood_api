@@ -62,6 +62,14 @@ exports.getRestaurantsInRadius = asyncHandler(async (req, res, next) => {
 // @access      Private { Owner / Admin }
 exports.createRestaurant = asyncHandler(async (req, res, next) => {
 
+  req.body.user = req.user.id
+
+  const anotherRestaurant = await Restaurant.findOne({ user: req.user.id })
+
+  if (anotherRestaurant && req.user.role !== "admin") {
+    return next(new CustomError(`User already has a published a Restaurant`, 400))
+  }
+
   const restaurant = await Restaurant.create(req.body)
 
   res.status(201).json({
@@ -75,14 +83,20 @@ exports.createRestaurant = asyncHandler(async (req, res, next) => {
 // @access      Private { Owner / Admin }
 exports.updateRestaurant = asyncHandler(async (req, res, next) => {
 
-  const restaurant = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  })
+  let restaurant = await Restaurant.findById(req.params.id)
 
   if (!restaurant) {
     return next(new CustomError(`No restaurant find with the ID ${req.params.id}`, 404))
   }
+
+  if (restaurant.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(new CustomError(`User is not authorized to update this Restaurant`, 403))
+  }
+
+  restaurant = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  })
 
   res.status(200).json({
     success: true, 
@@ -95,11 +109,17 @@ exports.updateRestaurant = asyncHandler(async (req, res, next) => {
 // @access      Private { Owner / Admin }
 exports.deleteRestaurant = asyncHandler(async (req, res, next) => {
 
-  const restaurant = await Restaurant.findByIdAndRemove(req.params.id)
+  let restaurant = await Restaurant.findById(req.params.id)
 
   if (!restaurant) {
     return next(new CustomError(`No restaurant find with the ID ${req.params.id}`, 404))
   }
+
+  if(restaurant.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(new CustomError(`User is not authorized to delete this restaurant`, 403))
+  }
+
+  restaurant.remove()
 
   res.status(200).json({
     success: true, 

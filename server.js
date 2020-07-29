@@ -46,6 +46,7 @@ app.use(errorHandler)
 process.on('unhandledRejection', (err) => {
   console.log(`${err.name}:`.red)
   console.log(`${err.message}`)
+  console.log(err)
 })
 
 // Run server

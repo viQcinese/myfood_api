@@ -3,12 +3,21 @@
     "name" : "vitor",
     "email" : "vitor@gmail.com",
     "role" : "user",
-    "password" : "123123"
+    "password" : "123123",
+    "_id" : "5f2057de11c6b23fdc5fabf9"
   },
   {
     "name" : "mario",
     "email" : "mario@gmail.com",
     "role" : "owner",
-    "password" : "123123"
+    "password" : "123123",
+    "_id" : "5f1f4620ba56bc57e8ba159a"
+  },
+  {
+    "name" : "pedro",
+    "email" : "pedro@gmail.com",
+    "role" : "user",
+    "password" : "123123",
+    "_id" : "5f1f45fc2a605d00e04d8e29"
   }
 ]
