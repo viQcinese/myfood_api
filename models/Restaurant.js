@@ -4,6 +4,8 @@ const mongoose = require("mongoose")
 const slugify = require("slugify")
 const geocoder = require(path.join(__dirname, "..", "utils", "geocoder"))
 
+
+
 // Restaurant Schema
 const restaurantSchema = new mongoose.Schema({
   
@@ -21,7 +23,7 @@ const restaurantSchema = new mongoose.Schema({
 
   description: {
     type: String,
-    required: [true, "You have to enter a name"],
+    required: [true, "You have to enter a description"],
     unique: false,
     maxlength: [500, "Description cannot be more than 500 chars"]
   },
@@ -86,14 +88,6 @@ const restaurantSchema = new mongoose.Schema({
 
   averageRating: {
     type: Number,
-    min: [1, "Rating must be at least 1"],
-    max: [10, "Rating must be no more than 10"]
-  },
-
-  averageCost: {
-    type: Number,
-    min: [1, "Cost must be at least 1"],
-    max: [10, "Cost must be no more than 10"],
   },
 
   createdAt: {
@@ -109,7 +103,9 @@ const restaurantSchema = new mongoose.Schema({
 
 })
 
-// Slugfy Before Save
+
+
+// Slugify Before Save
 restaurantSchema.pre('save', function() {
 
   this.slug = slugify(this.name, { lower: true})
@@ -134,6 +130,8 @@ restaurantSchema.pre('save', async function(){
   this.address = undefined;
 
 })
+
+
 
 // Set Restaurant Model
 const Restaurant = mongoose.model("Restaurant", restaurantSchema)

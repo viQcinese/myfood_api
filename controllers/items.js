@@ -20,12 +20,12 @@ exports.getItems = asyncHandler(async (req, res, next) => {
 
 })
 
-// @desc        Get Item From Restaurant
+// @desc        Get Item 
 // @route       GET /api/v1/restaurants/:restaurant_id/items/:id
 // @access      Public
 exports.getItem = asyncHandler(async (req, res, next) => {
   
-  const item = await Item.findOne({ restaurant: req.params.restaurant_id, _id: req.params.id })
+  const item = await Item.findById(req.params.id)
 
   if (!item) {
     return next(new CustomError(`No item found with the ID ${req.params.restaurant_id}`, 404))
@@ -70,7 +70,7 @@ exports.createItem = asyncHandler(async (req, res, next) => {
 // @access      Private { owner }
 exports.updateItem = asyncHandler(async (req, res, next) => {
 
-  const item = await Item.findById(req.params.id)
+  let item = await Item.findById(req.params.id)
 
   if (!item) {
     return next(new CustomError(`No item found with the ID ${req.params.id}`, 404))

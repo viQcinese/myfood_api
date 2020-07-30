@@ -1,0 +1,37 @@
+[
+  {
+    "name": "TERRIBLE RESTAURANT",
+    "text": "Never go there. The food sucks",
+    "rating": 1,
+    "restaurant": "5f2102cb83947f3c84477b89",
+    "user": "5f1f45fc2a605d00e04d8e29"
+  },
+  {
+    "name": "A good restaurant",
+    "text": "It's not bad",
+    "rating": 6,
+    "restaurant": "5f2102cb83947f3c84477b89",
+    "user": "5f2240180f158641a8a166ab"
+  },
+  {
+    "name": "Love it!",
+    "text": "This one was great. Nice food and ambience",
+    "rating": 8,
+    "restaurant": "5f2102cb83947f3c84477b88",
+    "user": "5f1f45fc2a605d00e04d8e29"
+  },
+  {
+    "name": "Nice ambience",
+    "text": "Loved the guys playing guitar and the candles around the tables",
+    "rating": 7,
+    "restaurant": "5f2102cb83947f3c84477b88",
+    "user": "5f2240180f158641a8a166ab"
+  },
+  {
+    "name": "Not so great",
+    "text": "I went with high expectations and got disapointed",
+    "rating": 5,
+    "restaurant": "5f2102cb83947f3c84477b87",
+    "user": "5f1f45fc2a605d00e04d8e29"
+  }
+]

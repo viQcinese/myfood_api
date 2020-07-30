@@ -4,6 +4,7 @@
     "email" : "vitor@gmail.com",
     "role" : "user",
     "password" : "123123",
+    "address" : "Rua Domingos de Morais, 1210, São Paulo, SP",
     "_id" : "5f2057de11c6b23fdc5fabf9"
   },
   {
@@ -11,6 +12,7 @@
     "email" : "mario@gmail.com",
     "role" : "owner",
     "password" : "123123",
+    "address" : "Rua Maranhão, 180, São Paulo, SP",
     "_id" : "5f1f4620ba56bc57e8ba159a"
   },
   {
@@ -18,6 +20,15 @@
     "email" : "pedro@gmail.com",
     "role" : "user",
     "password" : "123123",
+    "address" : "Avenida Paulista, 1210, São Paulo, SP",
     "_id" : "5f1f45fc2a605d00e04d8e29"
-  }
+  },
+  {
+    "name" : "francisco",
+    "email" : "francisco@gmail.com",
+    "role" : "user",
+    "password" : "123123",
+    "address" : "Rua das Rosas, 120, São Paulo, SP",
+    "_id" : "5f2240180f158641a8a166ab"
+  }  
 ]

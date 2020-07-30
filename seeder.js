@@ -12,6 +12,7 @@ dotenv.config({ path: path.join(__dirname, "config", "config.env")})
 const Restaurant = require(path.join(__dirname, "models", "Restaurant"))
 const User = require(path.join(__dirname, "models", "User"))
 const Item = require(path.join(__dirname, "models", "Item"))
+const Review = require(path.join(__dirname, "models", "Review"))
 
 // Connect to DataBase
 mongoose.connect(process.env.MONGO_URI, {
@@ -25,6 +26,7 @@ mongoose.connect(process.env.MONGO_URI, {
 const restaurants = JSON.parse(fs.readFileSync(path.join(__dirname, "_data", "restaurants.json"), "utf-8"))
 const users = JSON.parse(fs.readFileSync(path.join(__dirname, "_data", "users.json"), "utf-8"))
 const items = JSON.parse(fs.readFileSync(path.join(__dirname, "_data", "items.json"), "utf-8"))
+const reviews = JSON.parse(fs.readFileSync(path.join(__dirname, "_data", "reviews.json"), "utf-8"))
 
 // Import Data
 async function importData() {
@@ -32,6 +34,7 @@ async function importData() {
     await Restaurant.create(restaurants)
     await User.create(users)
     await Item.create(items)
+    await Review.create(reviews)
     console.log("Imported data".green.inverse)
     process.exit();
   } catch (err) {
@@ -45,6 +48,7 @@ async function deleteData() {
     await Restaurant.deleteMany()
     await User.deleteMany()
     await Item.deleteMany()
+    await Review.deleteMany()
     console.log("Deleted data".red.inverse)
     process.exit();
   } catch (err) {

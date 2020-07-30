@@ -4,13 +4,13 @@ const express = require("express")
 
 // Models
 const Restaurant = require(path.join(__dirname, "..", "models", "Restaurant"))
-const User = require(path.join(__dirname, "..", "models", "User"))
 
 // Controller Functions
 const {
   getRestaurants,
   getRestaurant,
   getRestaurantsInRadius,
+  getRestaurantsInRadiusFromUser,
   createRestaurant,
   updateRestaurant,
   deleteRestaurant,
@@ -27,14 +27,19 @@ const advancedSearch = require(path.join(__dirname, "..", "middleware", "advance
 
 // Require Routes for other Documents
 const itemRouter = require(path.join(__dirname, "items"))
+const reviewRouter = require(path.join(__dirname, "reviews"))
 
 // Initialize Router
 const router = express.Router()
 
 // Re-route into other document routers
 router.use('/:restaurant_id/items', itemRouter)
+router.use('/:restaurant_id/reviews', reviewRouter)
 
 // Restaurant Routes
+router.route("/me/:distance")
+  .get(authenticate, getRestaurantsInRadiusFromUser)
+
 router.route("/:zipcode/:distance")
   .get(getRestaurantsInRadius)
 

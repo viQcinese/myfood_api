@@ -33,7 +33,7 @@ exports.getRestaurant = asyncHandler(async (req, res, next) => {
 })
 
 // @desc        Get restaurants in radius
-// @route       GET /api/v1/restaurants/:zipcode/:radius
+// @route       GET /api/v1/restaurants/:zipcode/:distance
 // @access      Public
 exports.getRestaurantsInRadius = asyncHandler(async (req, res, next) => {
 
@@ -43,6 +43,28 @@ exports.getRestaurantsInRadius = asyncHandler(async (req, res, next) => {
   const geoLocation = await geocoder.geocode(zipcode)
   const lat = geoLocation[0].latitude
   const lon = geoLocation[0].longitude
+  const radius = distance / 6378
+
+  const restaurants = await Restaurant.find({
+    location: { $geoWithin: { $centerSphere: [[lon, lat], radius ]}}
+  })
+
+  res.status(200).json({
+    success: true,
+    count: restaurants.length,
+    data: restaurants
+  })
+
+})
+
+// @desc        Get restaurants in radius from User
+// @route       GET /api/v1/restaurants/me/:distance
+// @access      Private { User }
+exports.getRestaurantsInRadiusFromUser = asyncHandler(async (req, res, next) => {
+
+  const distance = req.params.distance
+  const lat = req.user.location.coordinates[1]
+  const lon = req.user.location.coordinates[0]
   const radius = distance / 6378
 
   const restaurants = await Restaurant.find({

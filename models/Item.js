@@ -24,10 +24,6 @@ const itemSchema = mongoose.Schema({
     required: [true, "You have to enter a price"],
   },
 
-  category: {
-    type: String,
-  },
-
   restaurant: {
     type: mongoose.Schema.ObjectId,
     ref: "Restaurant",
