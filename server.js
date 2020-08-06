@@ -4,6 +4,13 @@ const dotenv = require("dotenv");
 const path = require("path")
 const colors = require("colors");
 const cookieParser = require("cookie-parser")
+const helmet = require("helmet")
+const xss = require("xss-clean")
+const mongoSanitize = require("express-mongo-sanitize");
+const expressMongoSanitize = require("express-mongo-sanitize")
+const hpp = require("hpp")
+const cors = require("cors")
+const rateLimit = require("express-rate-limit")
 
 // Initialize Enviromental Variables
 dotenv.config({ path: path.join(__dirname, "config", "config.env")})
@@ -24,6 +31,14 @@ const reviews = require(path.join(__dirname, "routes", "reviews"))
 // Initialize Express
 const app = express()
 
+// Set Request Rate Limit
+const limiter = rateLimit({
+  windowMs: 1000 * 60 * 10, // 10 mins
+  max: 100 // max requests
+})
+
+app.use(limiter)
+
 // Set Cookie Parser
 app.use(cookieParser())
 
@@ -32,6 +47,21 @@ app.use(express.static(path.join(__dirname, "public")))
 
 // Set BodyParser
 app.use(express.json())
+
+// Set Mongoose Data Sanitizer
+app.use(expressMongoSanitize())
+
+// Set Security Headers
+app.use(helmet())
+
+// Set XSS Prevention
+app.use(xss())
+
+// Enable CORS
+app.use(cors())
+
+// Set HPP Prevention
+app.use(hpp())
 
 // Mount routers
 app.use("/api/v1/restaurants", restaurants)
