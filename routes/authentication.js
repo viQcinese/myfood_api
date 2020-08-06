@@ -20,9 +20,10 @@ const {
   authorize
 } = require(path.join(__dirname, "..", "middleware", "auth"))
 
-// Routes
+// Initialize Router
 const router = express.Router()
 
+// Routes
 router.route('/getme')
   .get(authenticate, getCurrentUser)
 

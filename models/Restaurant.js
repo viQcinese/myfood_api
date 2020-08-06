@@ -4,8 +4,6 @@ const mongoose = require("mongoose")
 const slugify = require("slugify")
 const geocoder = require(path.join(__dirname, "..", "utils", "geocoder"))
 
-
-
 // Restaurant Schema
 const restaurantSchema = new mongoose.Schema({
   
@@ -103,8 +101,6 @@ const restaurantSchema = new mongoose.Schema({
 
 })
 
-
-
 // Slugify Before Save
 restaurantSchema.pre('save', function() {
 
@@ -130,8 +126,6 @@ restaurantSchema.pre('save', async function(){
   this.address = undefined;
 
 })
-
-
 
 // Set Restaurant Model
 const Restaurant = mongoose.model("Restaurant", restaurantSchema)

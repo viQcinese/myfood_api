@@ -14,14 +14,14 @@ const {
   deleteUser
 } = require(path.join(__dirname, "..", "controllers", "users"))
 
-// Advanced Search Middleware
-const advancedSearch = require(path.join(__dirname, "..", "middleware", "advanced-search"))
-
 // Auth Middleware
 const {
   authenticate,
   authorize
 } = require(path.join(__dirname, "..", "middleware", "auth"))
+
+// Advanced Search Middleware
+const advancedSearch = require(path.join(__dirname, "..", "middleware", "advanced-search"))
 
 // Initialize Router
 const router = express.Router()

@@ -6,8 +6,6 @@ const jwt = require("jsonwebtoken")
 const crypto = require("crypto")
 const geocoder = require(path.join(__dirname, "..", "utils", "geocoder"))
 
-
-
 // Set User Schema
 const userSchema = new mongoose.Schema({
 
@@ -42,7 +40,6 @@ const userSchema = new mongoose.Schema({
 
   address: {
     type: String,
-    required: [true, "You must add an address"]
   },
 
   location: {
@@ -69,8 +66,6 @@ const userSchema = new mongoose.Schema({
   }
 
 })
-
-
 
 // Hash Password Middleware (bcrypt)
 userSchema.pre('save', async function(next) {
@@ -119,23 +114,23 @@ userSchema.methods.getResetPasswordToken = function() {
 // Geocode Before Save and remove Address Field
 userSchema.pre('save', async function(){
 
-  const geoLocations = await geocoder.geocode(this.address)
-  const geoLocation = geoLocations[0]
-  this.location = {
-    type: "Point",
-    coordinates : [geoLocation.longitude, geoLocation.latitude],
-    formattedAddress: geoLocation.formattedAddress,
-    street: geoLocation.streetName,
-    city: geoLocation.city,
-    state: geoLocation.stateCode,
-    zipcode: geoLocation.zipcode,
-    country: geoLocation.countryCode
+  if (this.address) {
+    const geoLocations = await geocoder.geocode(this.address)
+    const geoLocation = geoLocations[0]
+    this.location = {
+      type: "Point",
+      coordinates : [geoLocation.longitude, geoLocation.latitude],
+      formattedAddress: geoLocation.formattedAddress,
+      street: geoLocation.streetName,
+      city: geoLocation.city,
+      state: geoLocation.stateCode,
+      zipcode: geoLocation.zipcode,
+      country: geoLocation.countryCode
+    }
+    this.address = undefined;
   }
-  this.address = undefined;
-
+  
 })
-
-
 
 // Set User Model
 const User = mongoose.model('User', userSchema)

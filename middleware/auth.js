@@ -5,7 +5,7 @@ const User = require(path.join(__dirname, "..", "models", "User"))
 const asyncHandler = require(path.join(__dirname, "..", "middleware", "async"))
 const CustomError = require(path.join(__dirname, "..", "utils", "CustomError"))
 
-// Check User Middleware
+// Authenticate User Middleware
 const authenticate = async (req, res, next) => {
 
   let token
@@ -16,11 +16,11 @@ const authenticate = async (req, res, next) => {
     token = req.headers.authorization.split(" ")[1]  }
 
   // Check for Token in the Cookies
-  // if (req.cookies && req.cookies.token) {
-  //   token = req.cookies.token
-  // }
+  if (req.cookies && req.cookies.token) {
+    token = req.cookies.token
+  }
 
-  // If there is not token
+  // If there is no token
   if (!token) {
     return next(new CustomError(`You are not authorized to access this route  `, 401))
   }
@@ -37,6 +37,7 @@ const authenticate = async (req, res, next) => {
   
 }
 
+// Authorize User Middleware
 const authorize = (...roles) => (req, res, next) => {
   if (!roles.includes(req.user.role)) {
     return next(new CustomError(`User role ${req.user.role} is not authorized to access this route`, 403))

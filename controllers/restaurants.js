@@ -5,7 +5,7 @@ const Restaurant = require(path.join(__dirname, "..", "models", "Restaurant"))
 const asyncHandler = require(path.join(__dirname, "..", "middleware", "async"))
 const CustomError = require(path.join(__dirname, "..", "utils", "CustomError"))
 
-// @desc        Get all restaurants
+// @desc        Get All Restaurants
 // @route       GET /api/v1/restaurants
 // @access      Public
 exports.getRestaurants = asyncHandler(async (req, res, next) => {

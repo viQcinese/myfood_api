@@ -2,8 +2,6 @@
 const path = require("path")
 const express = require("express")
 
-// Models
-
 // Controller Functions
 const {
   getItems,
@@ -25,12 +23,12 @@ const router = express.Router({ mergeParams: true })
 // Routes
 router.route('/')
   .get(getItems)
-  .post(authenticate, authorize("owner"), createItem)
+  .post(authenticate, authorize("owner", "admin"), createItem)
 
 router.route('/:id')
   .get(getItem)
-  .put(authenticate, authorize("owner"), updateItem)
-  .delete(authenticate, authorize("owner"), deleteItem)
+  .put(authenticate, authorize("owner", "admin"), updateItem)
+  .delete(authenticate, authorize("owner", "admin"), deleteItem)
 
 // Export Router
 module.exports = router

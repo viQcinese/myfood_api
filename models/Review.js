@@ -2,8 +2,6 @@
 const path = require("path")
 const mongoose = require("mongoose")
 
-
-
 // Review Schema
 const reviewSchema = new mongoose.Schema({
 
@@ -45,8 +43,6 @@ const reviewSchema = new mongoose.Schema({
 
 })
 
-
-
 // Static Method to calculate average rating of a restaurant
 reviewSchema.statics.getAverageRating = async function(restaurant_id) {
 
@@ -62,13 +58,9 @@ reviewSchema.statics.getAverageRating = async function(restaurant_id) {
     }
   ])
 
-  console.log(aggregation)
-
   await this.model("Restaurant").findByIdAndUpdate(restaurant_id, { averageRating: aggregation[0].averageRating})
 
 }
-
-
 
 // Calculate Average Rating After Save
 reviewSchema.post("save", function() {
@@ -79,8 +71,6 @@ reviewSchema.post("save", function() {
 reviewSchema.pre("remove", function() {
   this.constructor.getAverageRating(this.restaurant)
 })
-
-
 
 // Set Review Model
 const Review = new mongoose.model("Review", reviewSchema)

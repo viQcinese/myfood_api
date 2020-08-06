@@ -1,8 +1,10 @@
+// Advanced Search Middleware
 const advancedSearch = (model, populate) => async (req, res, next) => {
   
+  // Duplicate Url Query
   let reqQuery = { ...req.query }
 
-  // Remove Mongo reserved words from Find parameters
+  // Remove Mongo reserved words from Url Query parameters
   const removeFields = ["sort", "select", "limit", "page"]
   removeFields.forEach( field => delete reqQuery[field])
 
@@ -10,7 +12,7 @@ const advancedSearch = (model, populate) => async (req, res, next) => {
   let queryStr = JSON.stringify(reqQuery)
   queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`)
 
-  // Initialize Mongoose Query
+  // Initialize Mongoose to Find Document
   let query = model.find(JSON.parse(queryStr))
 
   // Select Fields in Mongoose Query
@@ -27,7 +29,7 @@ const advancedSearch = (model, populate) => async (req, res, next) => {
     query = query.sort("-createdAt")
   }
 
-  // Pagination
+  // Paginate Mongoose Query
   const page = parseInt(req.query.page) || 1
   const limit = parseInt(req.query.limit) || 10
   const startIndex = (page - 1) * limit
@@ -44,7 +46,7 @@ const advancedSearch = (model, populate) => async (req, res, next) => {
   // Execute Mongoose Query
   const results = await query
 
-  // Pagination Results
+  // Build Pagination Results
   const pagination = {}
 
   if (startIndex > 0) {
@@ -61,6 +63,7 @@ const advancedSearch = (model, populate) => async (req, res, next) => {
     }
   }
 
+  // Send Advanced Results to the next function as a Response parameter 
   res.advancedResults = {
     success: true,
     count: results.length,

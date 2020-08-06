@@ -2,9 +2,6 @@
 const path = require("path")
 const express = require("express")
 
-// Initialize Router
-const router = express.Router({ mergeParams: true })
-
 // Models
 const Review = require(path.join(__dirname, "..", "models", "Review"))
 
@@ -23,8 +20,11 @@ const {
   authorize
 } = require(path.join(__dirname, "..", "middleware", "auth"))
 
-// Search Middleware
+// Advanced Search Middleware
 const advancedSearch = require(path.join(__dirname, "..", "middleware", "advanced-search"))
+
+// Initialize Router
+const router = express.Router({ mergeParams: true })
 
 // Routes
 router.route('/')

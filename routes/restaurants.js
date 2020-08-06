@@ -25,7 +25,7 @@ const {
 // Advanced Search Middleware
 const advancedSearch = require(path.join(__dirname, "..", "middleware", "advanced-search"))
 
-// Require Routes for other Documents
+// Routes for other Documents
 const itemRouter = require(path.join(__dirname, "items"))
 const reviewRouter = require(path.join(__dirname, "reviews"))
 
