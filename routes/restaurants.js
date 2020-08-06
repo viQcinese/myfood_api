@@ -45,12 +45,12 @@ router.route("/:zipcode/:distance")
 
 router.route("/:id")
   .get(getRestaurant)
-  .put(authenticate, authorize("owner"), updateRestaurant)
-  .delete(authenticate, authorize("owner"), deleteRestaurant)
+  .put(authenticate, authorize("owner", "admin"), updateRestaurant)
+  .delete(authenticate, authorize("owner", "admin"), deleteRestaurant)
 
 router.route("/")
-  .get(advancedSearch(Restaurant, "user"), getRestaurants)
-  .post(authenticate, authorize("owner"), createRestaurant)
+  .get(advancedSearch(Restaurant, "user", "admin"), getRestaurants)
+  .post(authenticate, authorize("owner", "admin"), createRestaurant)
 
 // Export Router
 module.exports = router

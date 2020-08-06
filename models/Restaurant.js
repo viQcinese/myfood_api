@@ -127,6 +127,13 @@ restaurantSchema.pre('save', async function(){
 
 })
 
+// Cascade Delete Items and Reviews
+restaurantSchema.pre('remove', async function(next) {
+  await this.model('Item').deleteMany({ restaurant: this._id })
+  await this.model('Review').deleteMany({ restaurant: this._id})
+  next()
+})
+
 // Set Restaurant Model
 const Restaurant = mongoose.model("Restaurant", restaurantSchema)
 
