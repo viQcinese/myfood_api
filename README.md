@@ -86,5 +86,5 @@ Or you can access it online at https://documenter.getpostman.com/view/11911541/T
 - Authentication with both JWT and Cookies
 
 ## Contributions
-Contributions are always welcome! If you take an interest in the code, feel free to make pull requests or get in touch with me on github
+Contributions are always welcome! If you take an interest in the code, feel free to make pull requests or get in touch with me on github 😊
 
