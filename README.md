@@ -30,7 +30,7 @@ npm install
 - Rename config_model.env to config.env
 - Edit config.env following the instructions commented inside the file
 
-Set the a MongoDB URI in order to use the server routes to interact with the database
+Set your MongoDB URI in order to use the server routes to interact with the database
 ```env
 MONGO_URI=
 ```
@@ -42,7 +42,7 @@ GEOCODER_API_KEY=
 GEOCODER_API_SECRET=
 ```
 
-Set the JSON Web Token variables in order to use implement authentication
+Set the JSON Web Token variables in order to implement authentication
 ```
 JWT_SECRET=yoursecretsecret
 JWT_EXPIRATION=10d
